@@ -5,8 +5,9 @@ from uuid import UUID
 from src.database.core import get_db
 from src.entities import User
 from . import model, service
+from src.modules.auth.jwt import get_current_user
 
-user_controller = APIRouter(prefix="/users", tags=["users"])
+user_controller = APIRouter(prefix="/users", tags=["users"], dependencies=[Depends(get_current_user)])
 
 # ================================
 # USER ROLE MANAGEMENT (Đặt TRƯỚC CRUD)

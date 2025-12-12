@@ -5,8 +5,9 @@ from src.database.core import get_db
 from src.entities import User, UserInfo, UserRole, UserStatistic, LevelType
 from . import model, service
 from typing import List
+from src.modules.auth.jwt import get_current_user
 
-message_controller = APIRouter(prefix="/messages", tags=["users"])
+message_controller = APIRouter(prefix="/messages", tags=["users"], dependencies=[Depends(get_current_user)])
 
 
 @message_controller.get("/types", response_model=List[model.MessageTypeResponse])

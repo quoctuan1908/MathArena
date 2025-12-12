@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
 from uuid import UUID
 from typing import List
-
 from src.database.core import get_db
 from . import model, service
+from src.modules.auth.jwt import get_current_user
 
-room_controller = APIRouter(prefix="/rooms", tags=["Rooms"])
+room_controller = APIRouter(prefix="/rooms", tags=["Rooms"], dependencies=[Depends(get_current_user)])
 
 
 # ------------------- RoomType ------------------- #

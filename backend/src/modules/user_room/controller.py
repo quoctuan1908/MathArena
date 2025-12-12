@@ -4,8 +4,10 @@ from uuid import UUID
 from src.database.core import get_db
 from . import model, service
 from typing import List
+from src.modules.auth.jwt import get_current_user
 
-user_room_controller = APIRouter(prefix="/user_rooms", tags=["user-rooms"])
+
+user_room_controller = APIRouter(prefix="/user_rooms", tags=["user-rooms"], dependencies=[Depends(get_current_user)])
 
 
 # ------------------------ User Room Role -----------------------#

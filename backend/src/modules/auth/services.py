@@ -1,15 +1,15 @@
 from sqlalchemy.orm import Session, joinedload
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status,Response
 import bcrypt
 from uuid import UUID
 from src.entities import User
 from . import model
 from src.modules.user.service import verify_password,get_user_by_username
-from .jwt import create_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
+from .jwt import create_access_token, create_refresh_token,ACCESS_TOKEN_EXPIRE_MINUTES
 import datetime
 
 
-def login_user(db: Session, login_data: model.Login) -> model.LoginResponse:
+def login_user(db: Session, login_data: model.Login, response: Response) -> model.LoginResponse:
     
     # Tìm user theo username
     user = get_user_by_username(db, login_data.username)
@@ -27,6 +27,19 @@ def login_user(db: Session, login_data: model.Login) -> model.LoginResponse:
         expires_delta=access_token_expires,
     )
     
+    refresh_token = create_refresh_token(
+        data={"sub": str(user.id), "username": user.username},
+        expires_delta=access_token_expires,       
+    )
+    
+    response.set_cookie(
+        key="refresh_token",
+        value=refresh_token,
+        httponly=True,
+        secure=True,
+        samesite="strict",
+        max_age=7*24*60*60,
+    )    
     return {
         "token": access_token,
         "user": user,

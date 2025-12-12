@@ -7,11 +7,9 @@ from src.entities import User, UserInfo, UserRole,Question
 from . import model, service
 from uuid import UUID
 from src.machine_learning import model_service
+from src.modules.auth.jwt import get_current_user
 
-question_controller = APIRouter(prefix="/questions", tags=["questions"])
-
-
-
+question_controller = APIRouter(prefix="/questions", tags=["questions"], dependencies=[Depends(get_current_user)])
 
 # @question_controller.post("/generate")
 # def generate_math(req: model.MathRequest):
