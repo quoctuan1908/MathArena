@@ -10,48 +10,39 @@ const initialState: AuthState = {
   user: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user')!)
     : null,
-  token: localStorage.getItem('token')
-    ? JSON.parse(localStorage.getItem('token')!)
-    : null,
+  token: localStorage.getItem('token') || null,
 }
-
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // Cập nhật kiểu PayloadAction để cho phép null
+    // Khi login thành công
     setCredentials: (
       state,
-      action: PayloadAction<{ user: UserResponse | null; token: string | null }>
+      action: PayloadAction<{ user: UserResponse; token: string }>
     ) => {
-      const { user, token } = action.payload
+      state.user = action.payload.user
+      state.token = action.payload.token
 
-      // Thêm điều kiện kiểm tra null
-      if (user !== null && token !== null) {
-        state.user = user
-        state.token = token
-
-        // Lưu vào localStorage
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('token', JSON.stringify(token))
-      } else {
-        // Nếu bạn muốn XÓA credentials khi nhận null/null
-        // thì nên dùng reducer `logout` hoặc thêm logic xóa ở đây.
-        // Hiện tại, nếu là null/null, state và storage sẽ KHÔNG thay đổi.
-        console.log("Dữ liệu user hoặc token là null, không lưu vào Redux/LocalStorage.")
-      }
+      localStorage.setItem('user', JSON.stringify(action.payload.user))
+      localStorage.setItem('token', action.payload.token)
     },
+
+    // Khi refresh token thành công
+    setToken: (state, action: PayloadAction<string>) => {
+      state.token = action.payload
+      localStorage.setItem('token', action.payload)
+    },
+
     logout: (state) => {
       state.user = null
       state.token = null
       localStorage.removeItem('user')
       localStorage.removeItem('token')
-      
-      
     },
   },
 })
 
-export const { setCredentials, logout } = authSlice.actions
+export const { setCredentials, setToken, logout } = authSlice.actions
 export default authSlice.reducer

@@ -10,7 +10,7 @@ from src.modules.auth.jwt import get_current_user
 user_controller = APIRouter(prefix="/users", tags=["users"], dependencies=[Depends(get_current_user)])
 
 # ================================
-# USER ROLE MANAGEMENT (Đặt TRƯỚC CRUD)
+# USER ROLE MANAGEMENT
 # ================================
 @user_controller.post("/roles", response_model=model.UserRoleResponse, status_code=status.HTTP_201_CREATED)
 def create_user_role(role_data: model.UserRoleCreate, db: Session = Depends(get_db)):

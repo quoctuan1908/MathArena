@@ -3,3 +3,7 @@ export type ApiResponse<T> = {
     message?: string,
     data: T
 }
+
+export interface RefreshResponse {
+  token: string;
+}
