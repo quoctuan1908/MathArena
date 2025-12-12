@@ -48,7 +48,7 @@ export const connectToSocket = (room_chat_id: string) => (dispatch: AppDispatch,
 
       // --- PHÂN TUYẾN SỰ KIỆN (EVENT ROUTER) ---
       switch (data.event) {
-        // --- Sự kiện Game (từ backend của bạn) ---
+        // --- Sự kiện Game ---
         case "game_countdown":
           dispatch(setGameCountdown(data.payload.time));
           break;
@@ -87,7 +87,7 @@ export const connectToSocket = (room_chat_id: string) => (dispatch: AppDispatch,
           dispatch(setRoomUserCount({ room_id , count }));
           break;
         }
-        // --- Sự kiện Chat (ví dụ) ---
+        // --- Sự kiện Chat ---
         case "receive_message":
         case "receive_answer":
         case "broadcast":
@@ -123,7 +123,7 @@ export const connectToSocket = (room_chat_id: string) => (dispatch: AppDispatch,
       // ----------------------------------------
 
     } catch (err) {
-      console.error("❌ Parse socket message error:", err);
+      console.error("Parse socket message error:", err);
     }
   };
 
@@ -135,7 +135,7 @@ export const connectToSocket = (room_chat_id: string) => (dispatch: AppDispatch,
       dispatch(clearRoomData()); 
     }
 
-    // 2️⃣ Cập nhật kết nối
+    // Cập nhật kết nối
     dispatch(setConnected(false));
   };
 };
@@ -147,7 +147,7 @@ export const sendSocketMessage = (event: string, payload: any) => (dispatch: App
   if (isConnected && ws && ws.readyState === WebSocket.OPEN) {
     ws.send(JSON.stringify({ event, payload }));
   } else {
-    console.log(`⚠️ WebSocket not ready, queuing message: ${event}`);
+    console.log(`WebSocket not ready, queuing message: ${event}`);
     dispatch(queueMessage({ event, payload }));
   }
 };

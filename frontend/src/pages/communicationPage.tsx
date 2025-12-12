@@ -28,7 +28,7 @@ const CommunicationPage = () => {
   const [getMessageByRoomChatId] = apiSlice.endpoints.getMessageByRoomChatId.useLazyQuery();
   const [getUserRoomByUserId] = apiSlice.endpoints.getUserRoomByUserId.useLazyQuery();
 
-  // 🔹 Lấy dữ liệu phòng và kiểm tra user đã tham gia chưa
+  // Lấy dữ liệu phòng và kiểm tra user đã tham gia chưa
   useEffect(() => {
     if (!id || !user) return;
 
@@ -61,26 +61,26 @@ const CommunicationPage = () => {
     fetchRoomAndCheckJoin();
   }, [id, user]);
 
-  // 🔹 Kết nối socket nếu đã join
+  // Kết nối socket nếu đã join
   useEffect(() => {
     if (hasJoined && roomData?.room_chat_id && room_id !== roomData.room_chat_id) {
       dispatch(connectToSocket(roomData.room_chat_id));
     }
   }, [hasJoined, roomData, dispatch, room_id]);
 
-  // 🔹 Khi có message mới từ socket
+  // Khi có message mới từ socket
   useEffect(() => {
     if (lastEvent === "receive_message" || lastEvent === "broadcast") {
       setMessages((prev) => [...prev, lastPayload]);
     }
   }, [lastEvent, lastPayload]);
 
-  // 🔹 Gửi tin nhắn
+  // Gửi tin nhắn
   const handleSend = (msg: MessageCreate) => {
     dispatch(sendSocketMessage("send_message", msg));
   };
 
-  // 🔹 Tham gia phòng
+  //Tham gia phòng
   const handleJoinRoom = async () => {
     if (!user || !roomData) return;
     try {
@@ -100,7 +100,7 @@ const CommunicationPage = () => {
     }
   };
 
-  // 🔹 Render
+  //  Render
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gray-50">

@@ -13,6 +13,7 @@ const initialSignUp: UserCreate = {
     address: "",
     phone: "",
     email: "",
+    created_at: ""
   },
 }
 

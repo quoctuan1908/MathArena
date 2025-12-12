@@ -6,7 +6,7 @@ import type { UserRoom, UserRoomCreate } from "../types/userRoom";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState, AppDispatch } from "../store/store";
-import { connectToSocket, sendSocketMessage } from "../socket";
+import { connectToSocket} from "../socket";
 import { clearRoomData } from "../store/socketSlice";
 
 const QuizListPage = () => {
