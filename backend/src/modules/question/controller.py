@@ -13,11 +13,11 @@ question_controller = APIRouter(prefix="/questions", tags=["questions"])
 
 
 
-@question_controller.post("/generate")
-def generate_math(req: model.MathRequest):
-    result = model_service.generate_output(input_text=req.text)
-    print(result)
-    return result
+# @question_controller.post("/generate")
+# def generate_math(req: model.MathRequest):
+#     result = model_service.generate_output(input_text=req.text)
+#     print(result)
+#     return result
 
 @question_controller.get("/types", response_model=List[model.QuestionTypeResponse])
 def get_all_question_types(db: Session = Depends(get_db)):
