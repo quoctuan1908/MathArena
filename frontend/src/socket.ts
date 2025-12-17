@@ -12,6 +12,7 @@ export const connectToSocket = (room_chat_id: string) => (dispatch: AppDispatch,
   if (ws) ws.close();
 
   ws = new WebSocket(import.meta.env.VITE_SOCKET_URL);
+  console.log(import.meta.env.VITE_SOCKET_URL)
 
   ws.onopen = () => {
     console.log("✅ Socket connected");

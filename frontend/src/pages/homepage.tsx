@@ -7,7 +7,7 @@ import { Star, TrendingUp, Layers } from "lucide-react";
 
 const HomePage = () => {
   const user = useSelector((state: RootState) => state.auth.user);
-
+  console.log(import.meta.env.VITE_SOCKET_URL)
   const { data: systemStats } = apiSlice.endpoints.getSystemStats.useQuery(undefined, {
     skip: !user || user.user_role.user_role_name !== "admin",
   });
