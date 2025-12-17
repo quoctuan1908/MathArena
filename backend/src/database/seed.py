@@ -1,10 +1,8 @@
 from src.database.core import SessionLocal
 from src.entities import *
 import bcrypt, uuid
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
+import os
 
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME')
 ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD')

@@ -6,7 +6,7 @@ from src.database.core import get_db
 from . import model, service
 from src.modules.auth.jwt import get_current_user
 
-room_controller = APIRouter(prefix="/rooms", tags=["Rooms"], dependencies=[Depends(get_current_user)])
+room_controller = APIRouter(prefix="/rooms", tags=["Rooms"])
 
 
 # ------------------- RoomType ------------------- #
@@ -55,6 +55,7 @@ def get_room_chat_by_name(room_chat_name: str, db: Session = Depends(get_db)):
 
 @room_controller.get("/quiz/", response_model=List[model.RoomChatResponse])
 def get_room_quiz(db: Session = Depends(get_db)):
+    print("Weird")
     return service.get_room_quiz(db)
 
 @room_controller.get("/chats/{room_chat_id}", response_model=model.RoomChatResponse)

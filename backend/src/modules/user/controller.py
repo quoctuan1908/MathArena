@@ -7,7 +7,7 @@ from src.entities import User
 from . import model, service
 from src.modules.auth.jwt import get_current_user
 
-user_controller = APIRouter(prefix="/users", tags=["users"], dependencies=[Depends(get_current_user)])
+user_controller = APIRouter(prefix="/users", tags=["users"])
 
 # ================================
 # USER ROLE MANAGEMENT

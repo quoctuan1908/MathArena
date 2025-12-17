@@ -19,7 +19,7 @@ const HomePage = () => {
   if (!user) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-        <h1 className="text-2xl font-bold mb-4">Chào mừng bạn đến hệ thống bỏ phiếu</h1>
+        <h1 className="text-2xl font-bold mb-4">Chào mừng bạn đến hệ thống trò chơi giải toán</h1>
         <Button type="button">
           <Link to="/login">Đăng nhập</Link>
         </Button>
